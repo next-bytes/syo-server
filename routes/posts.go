@@ -17,7 +17,7 @@ type NewPost struct {
 }
 
 func GetPosts(c *fiber.Ctx) error {
-	cursor, err := database.PostsCollection.Find(database.Ctx, bson.D{})
+	cursor, err := database.PostsCollection.Find(database.Ctx, bson.D{{Key: "answer", Value: nil}})
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
