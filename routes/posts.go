@@ -14,6 +14,7 @@ type NewPost struct {
 	Author  string
 	Content string
 	Answer  string
+	Topics  []string
 }
 
 func GetPosts(c *fiber.Ctx) error {
@@ -40,6 +41,13 @@ func CreatePost(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Invalid author or content of message",
 		})
+	}
+
+	var topics []string
+	if len(body.Topics) == 0 {
+		topics = []string{}
+	} else {
+		topics = body.Topics
 	}
 
 	var answerID interface{}
@@ -72,6 +80,7 @@ func CreatePost(c *fiber.Ctx) error {
 		Content:   body.Content,
 		Answer:    answerID,
 		Data:      models.PostData{},
+		Topics:    topics,
 		CreatedAt: time.Now(),
 	}
 	database.PostsCollection.InsertOne(database.Ctx, *newPost)

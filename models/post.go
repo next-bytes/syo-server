@@ -12,6 +12,7 @@ type Post struct {
 	Content   string             `json:"content" bson:"content"`
 	Answer    interface{}        `json:"answer" bson:"answer"`
 	Data      PostData           `json:"data" bson:"data"`
+	Topics    []string           `json:"topics" bson:"topics"`
 	CreatedAt time.Time          `json:"created_at" bson:"created_at"`
 }
 
