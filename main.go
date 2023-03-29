@@ -16,6 +16,10 @@ func registerRoutes(app *fiber.App) {
 		v1Posts := v1.Group("/posts")
 		v1Posts.Get("/", routes.GetPosts)
 		v1Posts.Post("/", routes.CreatePost)
+		v1Posts.Get("/:id", routes.GetPostById)
+
+		v1Posts.Get("/:id/comments", routes.GetPostComments)
+		v1Posts.Post("/:id/comments", routes.CreatePostComment)
 	}
 }
 
