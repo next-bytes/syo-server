@@ -20,6 +20,10 @@ func registerRoutes(app *fiber.App) {
 
 		v1Posts.Get("/:id/comments", routes.GetPostComments)
 		v1Posts.Post("/:id/comments", routes.CreatePostComment)
+
+		v1Posts.Get("/:id/topics", routes.GetPostTopics)
+
+		v1.Get("/topics", routes.GetTopicsRecommended)
 	}
 }
 
