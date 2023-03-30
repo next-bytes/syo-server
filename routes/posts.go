@@ -8,6 +8,7 @@ import (
 	"github.com/next-bytes/syo-back/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type NewPost struct {
@@ -17,7 +18,7 @@ type NewPost struct {
 }
 
 func GetPosts(c *fiber.Ctx) error {
-	cursor, err := database.PostsCollection.Find(database.Ctx, bson.D{{Key: "answer", Value: nil}})
+	cursor, err := database.PostsCollection.Find(database.Ctx, bson.D{{Key: "answer", Value: nil}}, options.Find().SetSort(bson.D{{Key: "created_at", Value: -1}}))
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
