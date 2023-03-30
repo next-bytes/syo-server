@@ -76,5 +76,7 @@ func GetPostById(c *fiber.Ctx) error {
 	if err := database.PostsCollection.FindOne(database.Ctx, filter).Decode(post); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "This post not exists"})
 	}
+	post.Data.Views++
+	database.PostsCollection.UpdateOne(database.Ctx, filter, bson.D{{Key: "$set", Value: bson.D{{Key: "data", Value: post.Data}}}})
 	return c.Status(fiber.StatusOK).JSON(post)
 }
