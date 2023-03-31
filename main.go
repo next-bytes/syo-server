@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -28,9 +29,13 @@ func registerRoutes(app *fiber.App) {
 }
 
 func startServer() {
-	if err := godotenv.Load(); err != nil {
-		panic(err)
+
+	if os.Getenv("GO_ENV") != "production" {
+		if err := godotenv.Load(); err != nil {
+			panic(err)
+		}
 	}
+
 	database.ConnectDB()
 
 	app := fiber.New()
