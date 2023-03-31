@@ -76,27 +76,4 @@ func CreatePostComment(c *fiber.Ctx) error {
 	database.PostsCollection.InsertOne(database.Ctx, *newPost)
 
 	return c.Status(fiber.StatusCreated).JSON(newPost)
-	// var answerID interface{}
-	// if len(body.Answer) != 0 {
-	// 	var err error
-	// 	answerID, err = primitive.ObjectIDFromHex(body.Answer)
-	// 	if err != nil {
-	// 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
-	// 	}
-
-	// 	filter := bson.D{{Key: "_id", Value: answerID}}
-	// 	answerPost := &models.Post{}
-	// 	if err := database.PostsCollection.FindOne(database.Ctx, filter).Decode(answerPost); err != nil {
-	// 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "This post not exists"})
-	// 	}
-
-	// 	answerPost.Data.Comments++
-	// 	database.PostsCollection.UpdateOne(database.Ctx, filter, bson.D{
-	// 		{Key: "$set", Value: bson.D{
-	// 			{Key: "data", Value: answerPost.Data},
-	// 		}},
-	// 	})
-	// } else {
-	// 	answerID = nil
-	// }
 }
