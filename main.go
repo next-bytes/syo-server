@@ -47,7 +47,8 @@ func startServer() {
 
 	registerRoutes(app)
 
-	app.Listen(":8080")
+	ip := fmt.Sprintf("0.0.0.0:%s", os.Getenv("PORT"))
+	app.Listen(ip)
 }
 
 func main() {
