@@ -34,7 +34,7 @@ func GetTopicsRecommended(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 
-	var topics []string
+	var topics []string = []string{}
 	for _, post := range *posts {
 		if len(topics) >= 5 {
 			break
